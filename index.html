@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>GA4 Data Layer Demo Site</title>
+
+    <style>
+
+        body { font-family: Arial, sans-serif; padding: 20px; }
+
+        .container { max-width: 600px; margin: 0 auto; border: 1px solid #ccc; padding: 20px; }
+
+        h1, h2 { color: #333; }
+
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; font-size: 16px; }
+
+        .product-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; }
+
+    </style>
+
+
+
+    <script>
+
+        window.dataLayer = window.dataLayer || [];
+
+    </script>
+
+
+
+    <script>
+
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+
+        })(window,document,'script','dataLayer','GTM-W4DTMTCW'); // <--- REPLACE GTM-XXXXXX
+
+    </script>
+
+    </head>
+
+<body>
+
+
+
+    <div class="container" id="product-page">
+
+        <h1>Product Detail Page</h1>
+
+
+
+        <script>
+
+            dataLayer.push({
+
+              event: 'view_item',
+
+              ecommerce: {
+
+                items: [{
+
+                  item_id: 'SKU-GA4-DEMO-001',
+
+                  item_name: 'Premium Data Layer Guide',
+
+                  price: 9.99,
+
+                  item_category: 'E-commerce',
+
+                  item_list_name: 'Product Details Page',
+
+                  quantity: 1
+
+                }]
+
+              }
+
+            });
+
+            console.log("GA4: view_item event pushed to dataLayer.");
+
+        </script>
+
+
+
+        <div class="product-card">
+
+            <h2>Premium Data Layer Guide (PDF)</h2>
+
+            <p>SKU: SKU-GA4-DEMO-001</p>
+
+            <p>Price: $9.99</p>
+
+            <p>A simple, structured product designed for testing GA4 e-commerce tracking.</p>
+
+            <button onclick="addToCartAndNavigate()">Add to Cart & Buy</button>
+
+        </div>
+
+
+
+        <p>To view the purchase event, click the button above.</p>
+
+    </div>
+
+
+
+    <div class="container" id="confirmation-page" style="display:none;">
+
+        <h1>Thank You for Your Order!</h1>
+
+        <p>Your tracking data for the **purchase** event should have been sent.</p>
+
+
+
+        <script>
+
+            // Note: This script is designed to run only once, after the simulated navigation.
+
+            function firePurchaseEvent() {
+
+                dataLayer.push({
+
+                  event: 'purchase', // Standard GA4 event name
+
+                  ecommerce: {
+
+                    transaction_id: 'TID-DEMO-9001',
+
+                    value: 11.99, // Total value (Product + Shipping + Tax)
+
+                    shipping: 1.00,
+
+                    tax: 1.00,
+
+                    currency: 'USD',
+
+                    items: [{
+
+                      item_id: 'SKU-GA4-DEMO-001',
+
+                      item_name: 'Premium Data Layer Guide',
+
+                      price: 9.99,
+
+                      item_category: 'E-commerce',
+
+                      quantity: 1
+
+                    }]
+
+                  }
+
+                });
+
+                console.log("GA4: purchase event pushed to dataLayer.");
+
+            }
+
+
+
+        </script>
+
+    </div>
+
+
+
+    <script>
+
+        function addToCartAndNavigate() {
+
+            // Simulate adding to cart (which would typically have its own dataLayer.push)
+
+            // For simplicity, we skip directly to the confirmation page logic
+
+            
+
+            document.getElementById('product-page').style.display = 'none';
+
+            document.getElementById('confirmation-page').style.display = 'block';
+
+            
+
+            // Now that the confirmation page is visible, fire the purchase event
+
+            firePurchaseEvent();
+
+        }
+
+    </script>
+
+
+
+</body>
+
+</html> 
